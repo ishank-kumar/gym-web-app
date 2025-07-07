@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { Button, Stack, Typography } from '@mui/material';
 
 const ExerciseCard = ({ exercise }) => {
+  // Defensive check to avoid rendering broken links
+  if (!exercise?.id) {
+    console.warn('Invalid exercise object:', exercise);
+    return null;
+  }
+
   return (
     <Link
       className="exercise-card"
@@ -13,7 +19,12 @@ const ExerciseCard = ({ exercise }) => {
         src={exercise.gifUrl}
         alt={exercise.name}
         loading="lazy"
-        style={{ width: '100%', height: 'auto', borderTopLeftRadius: '20px', borderTopRightRadius: '20px' }}
+        style={{
+          width: '100%',
+          height: 'auto',
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px',
+        }}
       />
       <Stack direction="row" spacing={1} mt={2} pl={2}>
         <Button
@@ -45,7 +56,10 @@ const ExerciseCard = ({ exercise }) => {
         pb="10px"
         color="#000"
         fontWeight="bold"
-        sx={{ fontSize: { lg: '24px', xs: '20px' }, textTransform: 'capitalize' }}
+        sx={{
+          fontSize: { lg: '24px', xs: '20px' },
+          textTransform: 'capitalize',
+        }}
       >
         {exercise.name}
       </Typography>
